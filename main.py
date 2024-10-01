@@ -11,9 +11,9 @@ gemini_player_dict = {}
 gemini_pro_player_dict = {}
 default_model_dict = {}
 
-error_info="⚠️⚠️⚠️\nЧто-то пошло не так!\n"
-before_generate_info="🤖Генерирую🤖"
-download_pic_notify="🤖Загружаю картинку🤖"
+error_info="⚠️⚠️⚠️\nSomething went wrong !\nplease try to change your prompt or contact the admin !"
+before_generate_info="🤖Generating🤖"
+download_pic_notify="🤖Loading picture🤖"
 
 n = 30  #Number of historical records to keep
 
@@ -251,7 +251,7 @@ async def main():
     @bot.message_handler(commands=["start"])
     async def gemini_handler(message: Message):
         try:
-            await bot.reply_to( message , escape("Добро пожаловать, теперь вы можете задавать мне вопросы. \nНапример: кто ест яблоки?), parse_mode="MarkdownV2")
+            await bot.reply_to( message , escape("Welcome, you can ask me questions now. \nFor example: `Who is john lennon?`"), parse_mode="MarkdownV2")
         except IndexError:
             await bot.reply_to(message, error_info)
 
@@ -260,7 +260,7 @@ async def main():
         try:
             m = message.text.strip().split(maxsplit=1)[1].strip()
         except IndexError:
-            await bot.reply_to( message , escape("Пожалуйста, добавьте то, что вы хотите сказать, после /gemini.)), parse_mode="MarkdownV2")
+            await bot.reply_to( message , escape("Пожалуйста, добавьте то, что вы хотите сказать после /gemini. \nНапример: `/gemini Кто такой Джон Леннон?`"), parse_mode="MarkdownV2")
             return
         await gemini(bot,message,m)
 
@@ -269,7 +269,7 @@ async def main():
         try:
             m = message.text.strip().split(maxsplit=1)[1].strip()
         except IndexError:
-            await bot.reply_to( message , escape("Пожалуйста, добавьте то, что вы хотите сказать после /gemini_pro.), parse_mode="MarkdownV2")
+            await bot.reply_to( message , escape("Пожалуйста, добавьте то, что вы хотите сказать после /gemini_pro. \nНапример: `/gemini_pro Кто такой Джон Леннон?`"), parse_mode="MarkdownV2")
             return
         await gemini_pro(bot,message,m)
             
